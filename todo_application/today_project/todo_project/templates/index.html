@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todoy Application</title>
+</head>
+<body>
+
+{% extends 'navbar.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+                <div class="banner-text">
+                    <h2>ToDo</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+        <form method="post" enctype="" class="mb-3 shadow">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>TASK</label>
+            <input class="form-control" type="text" name="task" placeholder="Enter your task">
+        </div>
+        <div class="form-group">
+            <label>PRIORITY</label>
+            <textarea class="form-control" name="priority" placeholder="Whats your priority"></textarea>
+        </div>
+            <div class="form-group">
+                <input type="date" name="date">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" >
+            </div>
+        </form>
+        </div>
+        <div class="col-md-6">
+            <h2>Task to be completed</h2>
+            {% for i in show %}
+            <div class="shadow card">
+                <div class="card-body">
+                    <h4 class="card-title">Task {{i.id}}</h4>
+                    <h5>{{i.name}}</h5>
+                    <h6>{{i.date}}</h6>
+                    <p><b>{{i.priority}}</b></p>
+                    <a href="{% url 'todo_app:delete' i.id %}" class="btn btn-danger">DELETE</a>
+                    <a href="{% url 'todo_app:update' i.id %}" class="btn btn-success">UPDATE</a>
+                </div><br>
+
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+</body>
+</html>
